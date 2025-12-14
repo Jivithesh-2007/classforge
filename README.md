@@ -174,8 +174,7 @@ db.users.find().pretty()
 ## 👤 Author's
 
 **Jivithesh**
-Software Engineering Student
-GitHub: [https://github.com/Jivithesh-2007](https://github.com/Jivithesh-2007)
+
 
 **Jebastin**
 
