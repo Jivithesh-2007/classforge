@@ -1,0 +1,226 @@
+/* Login.module.css */
+
+.container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f5f7fa;
+  padding: 20px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+.card {
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+  padding: 48px;
+  width: 100%;
+  max-width: 420px;
+  animation: slideUp 0.5s ease-out;
+}
+
+/* Animations */
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes shake {
+  0%,100% { transform: translateX(0); }
+  25% { transform: translateX(-6px); }
+  75% { transform: translateX(6px); }
+}
+
+@keyframes successGlow {
+  0% { box-shadow: 0 0 0 rgba(79,70,229,0); }
+  50% { box-shadow: 0 0 22px rgba(79,70,229,0.45); }
+  100% { box-shadow: 0 0 0 rgba(79,70,229,0); }
+}
+
+@keyframes errorPulse {
+  0% { box-shadow: 0 0 0 rgba(220,38,38,0); }
+  50% { box-shadow: 0 0 18px rgba(220,38,38,0.35); }
+  100% { box-shadow: 0 0 0 rgba(220,38,38,0); }
+}
+
+/* Header */
+.header {
+  text-align: center;
+  margin-bottom: 36px;
+}
+
+.logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.logoIcon {
+  width: 38px;
+  height: 38px;
+  color: #4f46e5;
+}
+
+.logoText {
+  font-size: 26px;
+  font-weight: 700;
+  color: #1f2937;
+}
+
+.title {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 6px;
+  color: #1f2937;
+}
+
+.subtitle {
+  font-size: 15px;
+  color: #6b7280;
+}
+
+/* Motto */
+.motto {
+  margin-top: 10px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #4f46e5;
+}
+
+/* Form */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.label {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  color: #374151;
+}
+
+/* Inputs */
+.input {
+  width: 100%;
+  padding: 12px 16px;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+  font-size: 15px;
+  background: #f9fafb;
+  outline: none;
+  box-sizing: border-box;
+  transition: all 0.2s;
+}
+
+.input:focus {
+  border-color: #4f46e5;
+  background: #fff;
+  box-shadow: 0 0 0 3px rgba(79,70,229,0.1);
+}
+
+/* Password */
+.passwordWrapper {
+  position: relative;
+}
+
+.passwordWrapper .input {
+  padding-right: 44px;
+}
+
+.eyeButton {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #6b7280;
+  transition: color 0.2s;
+}
+
+.eyeButton:hover {
+  color: #4f46e5;
+}
+
+.eyeIcon {
+  width: 20px;
+  height: 20px;
+  stroke-width: 2;
+}
+
+/* Error / Warning */
+.error {
+  background: #fee2e2;
+  border-left: 4px solid #dc2626;
+  color: #991b1b;
+  padding: 12px 14px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  animation: shake 0.35s, errorPulse 0.6s ease-out;
+}
+
+.error::before {
+  content: "⚠️";
+}
+
+/* Button */
+.submitButton {
+  margin-top: 10px;
+  padding: 14px;
+  background: #4f46e5;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.submitButton:hover:not(:disabled) {
+  background: #4338ca;
+  transform: translateY(-1px);
+}
+
+.submitButton:disabled {
+  opacity: 0.6;
+}
+
+/* Success hook */
+.success {
+  animation: successGlow 0.6s ease-in-out;
+}
+
+/* Footer */
+.footer {
+  margin-top: 14px;
+  text-align: center;
+  font-size: 14px;
+  color: #6b7280;
+}
+
+.link {
+  color: #4f46e5;
+  font-weight: 600;
+  text-decoration: none;
+}
