@@ -1,189 +1,73 @@
-# ClassForge – Academic Task Submission Portal
+# React + TypeScript + Vite
 
-ClassForge is a full-stack academic task submission and management platform designed for students, faculty, and administrators.
-It provides secure authentication, role-based access, and a clean UI for managing academic workflows efficiently.
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
----
+Currently, two official plugins are available:
 
-## 🚀 Features
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-### 🔐 Authentication & Authorization
+## React Compiler
 
-* Secure login and signup using JWT
-* Role-based access (Student / Faculty / Admin)
-* Password visibility toggle and validation
-* Warning-style error notifications
+The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
 
-### 👨‍🎓 Student
+## Expanding the ESLint configuration
 
-* Register and login securely
-* Submit academic tasks
-* View submission status
+If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
 
-### 👨‍🏫 Faculty
+```js
+export default defineConfig([
+  globalIgnores(['dist']),
+  {
+    files: ['**/*.{ts,tsx}'],
+    extends: [
+      // Other configs...
 
-* Review student submissions
-* Manage tasks and assignments
+      // Remove tseslint.configs.recommended and replace with this
+      tseslint.configs.recommendedTypeChecked,
+      // Alternatively, use this for stricter rules
+      tseslint.configs.strictTypeChecked,
+      // Optionally, add this for stylistic rules
+      tseslint.configs.stylisticTypeChecked,
 
-### 🛠 Admin
-
-* Manage users
-* Control system-level operations
-
-### 🎨 UI / UX
-
-* Modern React UI with CSS Modules
-* Clean form validations and animations
-* Responsive design
-* Eye-toggle password fields
-
----
-
-## 🧑‍💻 Tech Stack
-
-### Frontend
-
-* React.js
-* React Router
-* CSS Modules
-* Fetch API
-
-### Backend
-
-* Node.js
-* Express.js
-* MongoDB
-* Mongoose
-* JWT Authentication
-* Multer (file uploads)
-
----
-
-## 📁 Project Structure
-
-```
-classforge-project/
-│
-├── backend/
-│   ├── models/
-│   ├── routes/
-│   ├── middleware/
-│   ├── uploads/
-│   ├── server.js
-│   └── package.json
-│
-├── classforge/          # React frontend
-│   ├── src/
-│   │   ├── pages/
-│   │   ├── components/
-│   │   ├── services/
-│   │   ├── App.js
-│   │   └── index.js
-│   └── package.json
-│
-└── README.md
+      // Other configs...
+    ],
+    languageOptions: {
+      parserOptions: {
+        project: ['./tsconfig.node.json', './tsconfig.app.json'],
+        tsconfigRootDir: import.meta.dirname,
+      },
+      // other options...
+    },
+  },
+])
 ```
 
----
+You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
 
-## ⚙️ Setup Instructions
+```js
+// eslint.config.js
+import reactX from 'eslint-plugin-react-x'
+import reactDom from 'eslint-plugin-react-dom'
 
-### 1️⃣ Clone the repository
-
-```bash
-git clone https://github.com/Jivithesh-2007/classforge.git
-cd classforge-project
+export default defineConfig([
+  globalIgnores(['dist']),
+  {
+    files: ['**/*.{ts,tsx}'],
+    extends: [
+      // Other configs...
+      // Enable lint rules for React
+      reactX.configs['recommended-typescript'],
+      // Enable lint rules for React DOM
+      reactDom.configs.recommended,
+    ],
+    languageOptions: {
+      parserOptions: {
+        project: ['./tsconfig.node.json', './tsconfig.app.json'],
+        tsconfigRootDir: import.meta.dirname,
+      },
+      // other options...
+    },
+  },
+])
 ```
-
-### 2️⃣ Backend Setup
-
-```bash
-cd backend
-npm install
-```
-
-Create a `.env` file:
-
-```env
-PORT=5001
-MONGO_URI=your_mongodb_connection_string
-JWT_SECRET=your_secret_key
-```
-
-Run backend:
-
-```bash
-node server.js
-```
-
----
-
-### 3️⃣ Frontend Setup
-
-```bash
-cd ../classforge
-npm install
-npm start
-```
-
-Frontend runs on:
-
-```
-http://localhost:3000
-```
-
-Backend runs on:
-
-```
-http://localhost:5001
-```
-
----
-
-## 🧪 Database Verification
-
-To check stored users in MongoDB:
-
-```bash
-mongosh
-use classforge
-show collections
-db.users.find().pretty()
-```
-
----
-
-## 🔒 Security Notes
-
-* Passwords are hashed before storage
-* JWT tokens used for protected routes
-* `.env` file is ignored from GitHub
-
----
-
-## 📌 Future Enhancements
-
-* Dashboard analytics
-* Email notifications
-* Assignment deadlines & grading
-* File preview system
-* Cloud deployment
-
----
-
-## 👤 Author's
-
-**Jivithesh**
-
-
-**Jebastin**
-
-**Aditi**
-
-**Nishvanth**
-
----
-
-## ⭐ Support
-
-If you like this project, give it a ⭐ on GitHub and feel free to fork it!
