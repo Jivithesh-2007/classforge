@@ -1,38 +1,33 @@
-const express = require('express');
-const mongoose = require('mongoose');
-const cors = require('cors');
-require('dotenv').config();
-
-const authRoutes = require('./routes/authRoutes');
+require("dotenv").config();
+const express = require("express");
+const cors = require("cors");
+const connectDB = require("./config/db");
 
 const app = express();
 
-/* ===================== MIDDLEWARE ===================== */
+/* -------------------- CONNECT DATABASE -------------------- */
+connectDB();
+
+/* -------------------- MIDDLEWARES -------------------- */
+// CORS (React runs on 3000)
 app.use(cors({
-  origin: 'http://localhost:3000',
+  origin: "http://localhost:3000",
   credentials: true
 }));
+
+// Parse JSON body
 app.use(express.json());
 
-/* ===================== HEALTH CHECK ===================== */
-app.get('/health', (req, res) => {
-  res.status(200).send('OK');
+/* -------------------- ROUTES -------------------- */
+app.use("/api/auth", require("./routes/authRoutes"));
+
+/* -------------------- TEST ROUTE -------------------- */
+app.get("/ping", (req, res) => {
+  res.json({ message: "Backend alive" });
 });
 
-/* ===================== AUTH ROUTES ===================== */
-app.use('/api/auth', authRoutes);
-
-/* ===================== DATABASE ===================== */
-mongoose
-  .connect(process.env.MONGO_URI)
-  .then(() => console.log('✅ MongoDB connected'))
-  .catch((err) => {
-    console.error('❌ MongoDB error:', err.message);
-    process.exit(1);
-  });
-
-/* ===================== SERVER ===================== */
-const PORT = process.env.PORT || 5001;
+/* -------------------- START SERVER -------------------- */
+const PORT = 5001;
 app.listen(PORT, () => {
-  console.log(`🚀 ClassForge Backend running on http://localhost:${PORT}`);
+  console.log(`Server running on port ${PORT}`);
 });
