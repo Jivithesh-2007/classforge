@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import styles from './Login.module.css';
+import { login } from '../services/authService'; // ✅ added
 
 const Login = () => {
   const navigate = useNavigate();
@@ -30,33 +31,27 @@ const Login = () => {
     setError('');
 
     try {
-      const response = await fetch("http://localhost:5001/api/auth/login", {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
+      // ✅ replaced fetch with service call
+      const res = await login(formData);
 
-      const data = await response.json();
+      // ✅ store only auth data
+      localStorage.setItem('token', res.data.token);
+      localStorage.setItem('user', JSON.stringify(res.data.user));
 
-      if (response.ok) {
-        localStorage.setItem('token', data.token);
-        localStorage.setItem('user', JSON.stringify(data.user));
-        
-        // Redirect based on role
-        if (data.user.role === 'student') {
-          navigate('/student/dashboard');
-        } else if (data.user.role === 'faculty') {
-          navigate('/faculty/dashboard');
-        } else {
-          navigate('/admin/dashboard');
-        }
+      // ✅ role-based redirect (UNCHANGED behavior)
+      if (res.data.user.role === 'student') {
+        navigate('/student/dashboard');
+      } else if (res.data.user.role === 'faculty') {
+        navigate('/faculty/dashboard');
       } else {
-        setError(data.message || 'Login failed');
+        navigate('/admin/dashboard');
       }
-    } catch (error) {
-      setError('Network error. Please try again.');
+
+    } catch (err) {
+      setError(
+        err.response?.data?.message ||
+        'Network error. Please try again.'
+      );
     } finally {
       setLoading(false);
     }
@@ -75,8 +70,7 @@ const Login = () => {
           </div>
           <h1 className={styles.title}>Welcome Back</h1>
           <p className={styles.subtitle}>Sign in to your account</p>
-
-           <p className={styles.motto}>Secure access to your academic world. </p>
+          <p className={styles.motto}>Secure access to your academic world. </p>
         </div>
 
         <form className={styles.form} onSubmit={handleSubmit}>
